@@ -1,6 +1,4 @@
-FROM quantor/alpine-elixir:1.13.3
-
-MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
+FROM quantor/alpine-elixir-phoenix:1.13.3
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
@@ -14,20 +12,9 @@ RUN \
     chmod -R 777 /opt/app && \
     apk update && \
     apk --no-cache --update add \
-      make \
-      libstdc++ \
-      g++ \
-      wget \
-      curl \
-      inotify-tools \
-      nodejs \
-      npm && \
-    npm install npm -g --no-progress && \
+      wkhtmltopdf && \
     update-ca-certificates --fresh && \
     rm -rf /var/cache/apk/*
-
-# Add local node module binaries to PATH
-ENV PATH=./node_modules/.bin:$PATH
 
 # Ensure latest versions of Hex/Rebar are installed on build
 ONBUILD RUN mix do local.hex --force, local.rebar --force

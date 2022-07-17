@@ -1,7 +1,5 @@
 FROM {{DOCKERHUB_USER}}/alpine-erlang:{{ERLANG_VERSION}}
 
-MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
-
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using

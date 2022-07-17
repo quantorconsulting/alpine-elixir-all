@@ -1,10 +1,10 @@
-FROM alpine:3.14.3 AS build
+FROM alpine:3.14.6 AS build
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2022-01-03 \
+ENV REFRESHED_AT=2022-07-17 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \
@@ -109,7 +109,7 @@ RUN \
 
 ### Final Image
 
-FROM alpine:3.14.3
+FROM alpine:3.14.6
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 

@@ -4,7 +4,7 @@ VERSION ?= `cat VERSION`
 DOCKERHUB_USER ?= "quantor"
 MAJ_VERSION := $(shell echo $(VERSION) | sed 's/\([0-9][0-9]*\)\.\([0-9][0-9]*\)\(\.[0-9][0-9]*\)*/\1/')
 MIN_VERSION := $(shell echo $(VERSION) | sed 's/\([0-9][0-9]*\)\.\([0-9][0-9]*\)\(\.[0-9][0-9]*\)*/\1.\2/')
-IMAGE_NAME ?= $(DOCKERHUB_USER)/alpine-elixir-phoenix
+IMAGE_NAME ?= $(DOCKERHUB_USER)/alpine-elixir-phoenix-wkhtmltopdf
 
 help:
 	@echo "$(IMAGE_NAME):$(VERSION)"
@@ -12,6 +12,7 @@ help:
 
 test: ## Test the Docker image
 	docker run --rm -it $(IMAGE_NAME):$(VERSION) elixir --version
+	docker run --rm -it $(IMAGE_NAME):$(VERSION) wkhtmltopdf --version
 
 shell: ## Run an Elixir shell in the image
 	docker run --rm -it $(IMAGE_NAME):$(VERSION) iex

@@ -1,6 +1,6 @@
-export REFRESHED_AT="2022-01-03"
-export DOCKERHUB_USER="mindreframer"
+export REFRESHED_AT="2022-07-17"
+export DOCKERHUB_USER="quantor"
 
-export ALPINE_VERSION="3.14.3"
+export ALPINE_VERSION="3.14.6"
 export ERLANG_VERSION="24.2.2"
 export ELIXIR_VERSION="1.13.3"

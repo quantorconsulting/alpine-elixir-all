@@ -1,7 +1,7 @@
 .PHONY: help
 
 VERSION ?= `cat VERSION`
-DOCKERHUB_USER ?= "mindreframer"
+DOCKERHUB_USER ?= "quantor"
 MAJ_VERSION := $(shell echo $(VERSION) | sed 's/\([0-9][0-9]*\)\.\([0-9][0-9]*\)\(\.[0-9][0-9]*\)*/\1/')
 MIN_VERSION := $(shell echo $(VERSION) | sed 's/\([0-9][0-9]*\)\.\([0-9][0-9]*\)\(\.[0-9][0-9]*\)*/\1.\2/')
 IMAGE_NAME ?= $(DOCKERHUB_USER)/alpine-erlang
@@ -24,10 +24,10 @@ sh-build: ## Boot to a shell prompt in the build image
 	docker run --rm -it $(IMAGE_NAME)-build:$(VERSION) /bin/bash
 
 build: ## Build the Docker image
-	docker build --force-rm -t $(IMAGE_NAME):$(VERSION) -t $(IMAGE_NAME):$(MIN_VERSION) -t $(IMAGE_NAME):$(MAJ_VERSION) -t $(IMAGE_NAME):latest .
+	docker build --force-rm --platform linux/amd64 --no-cache -t $(IMAGE_NAME):$(VERSION) -t $(IMAGE_NAME):$(MIN_VERSION) -t $(IMAGE_NAME):$(MAJ_VERSION) -t $(IMAGE_NAME):latest .
 
-build-arm: ## Build the ARMv8 Docker image
-	docker build --force-rm -t $(ARM_IMAGE_NAME):$(VERSION) -t $(ARM_IMAGE_NAME):$(MIN_VERSION) -t $(ARM_IMAGE_NAME):$(MAJ_VERSION) -t $(ARM_IMAGE_NAME):latest -f Dockerfile.arm .
+#build-arm: ## Build the ARMv8 Docker image
+#	docker build --force-rm -t $(ARM_IMAGE_NAME):$(VERSION) -t $(ARM_IMAGE_NAME):$(MIN_VERSION) -t $(ARM_IMAGE_NAME):$(MAJ_VERSION) -t $(ARM_IMAGE_NAME):latest -f Dockerfile.arm .
 
 stage-build: ## Build the build image and stop there for debugging
 	docker build --target=build -t $(IMAGE_NAME)-build:$(VERSION) .
@@ -38,12 +38,12 @@ clean: ## Clean up generated images
 
 rebuild: clean build ## Rebuild the Docker image
 
-release: release-x86 release-arm ## Rebuild and release the Docker image to Docker Hub
+release: release-x86 #release-arm ## Rebuild and release the Docker image to Docker Hub
 
 release-x86: build
 	docker push $(IMAGE_NAME):$(VERSION)
 	docker push $(IMAGE_NAME):latest
 
-release-arm: build-arm
-	docker push $(ARM_IMAGE_NAME):$(VERSION)
-	docker push $(ARM_IMAGE_NAME):latest
+#release-arm: build-arm
+#	docker push $(ARM_IMAGE_NAME):$(VERSION)
+#	docker push $(ARM_IMAGE_NAME):latest
