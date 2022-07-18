@@ -7,7 +7,7 @@ die () {
     exit 1
 }
 
-[ "$#" -eq 1 ] || die "argument required, $# provided ( allowed value: erlang / elixir / phoenix )"
+[ "$#" -eq 1 ] || die "argument required, $# provided ( allowed value: erlang / elixir / phoenix / docker / wkhtmltopdf )"
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
